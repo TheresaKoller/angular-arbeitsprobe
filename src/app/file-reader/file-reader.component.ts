@@ -44,6 +44,7 @@ export class FileReaderComponent {
           });*/
         }else{
            console.log("Annotation entspricht nicht Fall 1-5");
+           //Zeilenumbruch
            let leer = "\n";
            this.result.push(leer);
         }
