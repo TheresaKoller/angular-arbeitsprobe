@@ -10,6 +10,33 @@ export class FileReaderComponent {
   result = new Array();
   ersteZeile;
   //leer;
+
+
+  getRoleNames(roles){
+
+
+
+    roles=roles+"test";
+    return roles;
+  }
+
+  getRoles(index_role, zeilen){
+    let roles = zeilen[index_role];
+    let found = true;
+    index_role=index_role+1;
+    while(found){
+      if(zeilen[index_role].search("[\+]")!== -1){
+        roles = roles+zeilen[index_role]
+      }else{
+        found = false;
+      }
+      index_role++;
+    }
+
+    return roles;
+  }
+
+
   onChange(event) {
     var file = event.target.files[0];
     var reader = new FileReader();
@@ -18,37 +45,66 @@ export class FileReaderComponent {
       this.fileOutput = e.target.result;
 
       let zeilen = this.fileOutput.split("\n");
-      let zeilenanzahl = zeilen.length;
 
       // String wird gesplittete und startet nun beim ersten @ Zeichen
-      let i =0;
+
+      let apioperation = false
+
+
+
+
+
+
+      // Löschen von unnötigen Zeilen
+      let index_delete =0;
+      for(let zeile of zeilen) {
+        if(zeile.search("@ApiResponse") !== -1){
+          zeilen.splice(index_delete,1);
+        }
+        if(zeile.search("@ApiResponses") !== -1){
+          zeilen.splice(index_delete,1);
+        }
+
+        index_delete++;
+      }
+
+// Zeilen analysieren
+
+      let i_analyze=0;
+
       for(let zeile of zeilen){
-        i++;
-        //console.log("zeilennummer:", i)
-        //console.log("Sucherergebnis search:",zeile.search("@PostMapping") )
+        i_analyze++;
+
+        //Bedingungen
+
+        if (zeile.search("@PreAuthorize") !== -1) {
+          let roles = this.getRoles(i_analyze, zeilen)
+          let role_names = this.getRoleNames(roles)
+          this.result.push(role_names)
+        }
         if(zeile.search("@ApiOperation") !== -1){
           zeile = zeile.substring(zeile.search("@ApiOperation"));
           let splitted = zeile.split("\"");
           splitted = splitted[1] + "\"";
           console.log(splitted);
           this.result.push(splitted);
+          apioperation = true;
         }else if (zeile.search("@GetMapping")>-1 || zeile.search("@PatchMapping")>-1 || zeile.search("@PostMapping")>-1 || zeile.search("@PutMapping")>-1 || zeile.search("@DeleteMapping")>1) {
           //this.result.push(zeile);
           let splitted = zeile.split("\"");
           splitted = splitted[1] + "\"";
           console.log(splitted);
           this.result.push(splitted);
-          //Stefan fragen wie man Anführungsstriche löscht
-          /*this.result.forEach((element,index)=>{
-            if(element=="\"") delete this.result[index];
-          });*/
         }else{
            console.log("Annotation entspricht nicht Fall 1-5");
-           let leer = "\n";
-           this.result.push(leer);
+           if(apioperation == true){
+               let leer = " \n";
+             this.result.push(leer);
+             apioperation=false;
+           }
+
         }
       }
-      //console.log(this.result);
     };
 
     reader.readAsText(file);
