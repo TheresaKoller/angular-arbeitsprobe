@@ -1,0 +1,20 @@
+<input class="button-design" type="file" (change)="onChange($event)">
+<br>
+<br>
+<br>
+
+  <table>
+    <tr>
+      <th *ngFor = "let column of headers" class="content-table">
+        {{column}}
+      </th>
+    </tr>
+
+    <tr *ngFor = "let result of rows">
+      <td *ngFor = "let column of headers" class="rows-table">
+        {{result}}
+      </td>
+    </tr>
+  </table>
+
+<!-- <app-test></app-test> -->

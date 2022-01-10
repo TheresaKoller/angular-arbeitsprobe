@@ -1,0 +1,31 @@
+.button-design {
+  padding: 12px 28px;
+  font-size: 16px;
+  background-color: #e7e7e7;
+  color: black;
+  border: none;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  min-width: 350px;
+}
+
+.content-table {
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 14px;
+  background-color: #CECECE;
+  color: #565656;
+  text-align: left;
+  min-width: 400px;
+}
+
+.rows-table {
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 0.9em;
+  background-color: #F6F6F6;
+  color: #565656;
+  text-align: left;
+  min-width: 400px;
+}

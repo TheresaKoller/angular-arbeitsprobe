@@ -1,0 +1,42 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="(isHandset$ | async) === false">
+    <mat-toolbar>Menu</mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item href="#">Link 1</a>
+      <a mat-list-item href="#">Link 2</a>
+      <a mat-list-item href="#">Link 3</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span>angular-app</span>
+    <!-- <mat-toolbar-row> -->
+      <span style="flex:auto"></span>
+        <!--<div fxShow="true" fxHide.It-md fxFlex fxLayout>
+        <div fxFlex fxLayoutAlign="flex-end center" class="logo-image"></div> -->
+        <div>
+          <img src="assets/img/Audi-Logo.png" alt="Audi-Logo">
+        </div>
+    <!-- </mat-toolbar-row> -->
+      <!-- auf Link verweisen
+        <span class="spacer"></span>
+      <a href="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.stickpng.com%2Fimg%2Ftransport%2Fcars%2Faudi%2Faudi-logo&psig=AOvVaw3N6z12U1wx-2jxRNlzD-Ft&ust=1636712001235000&source=images&cd=vfe&ved=0CAgQjRxqFwoTCOi0oL2JkPQCFQAAAAAdAAAAABAL"></a>
+        -->
+    </mat-toolbar>
+    <ng-content>
+
+    </ng-content>
+<file-reader></file-reader>
+  </mat-sidenav-content>
+</mat-sidenav-container>
