@@ -29,3 +29,9 @@
   text-align: left;
   min-width: 400px;
 }
+
+.td-table {
+  color: #F6F6F6;
+  background-color: #F6F6F6;
+  width: 200%;
+}

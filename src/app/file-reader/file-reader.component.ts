@@ -11,10 +11,11 @@ export class FileReaderComponent {
   ersteZeile;
   //leer;
 
-
+ //RegEx Großbuchstaben Rollen
   getRoleNames(roles){
-
-
+    if(roles.search("[A-Z,_]{3,}")!== -1){
+      this.result.push(roles);
+    }
 
     roles=roles+"test";
     return roles;

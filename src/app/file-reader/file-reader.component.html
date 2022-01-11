@@ -12,7 +12,7 @@
 
     <tr *ngFor = "let result of rows">
       <td *ngFor = "let column of headers" class="rows-table">
-        <div *ngIf='result==" \n"' style="background-color:yellow">test</div>
+        <div *ngIf='result==" \n"' class="td-table">test</div>
            {{result}}
       </td>
     </tr>
