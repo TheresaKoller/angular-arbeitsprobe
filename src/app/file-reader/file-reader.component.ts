@@ -22,16 +22,35 @@ export class FileReaderComponent {
 
       // String wird gesplittete und startet nun beim ersten @ Zeichen
       let i =0;
+      let apioperation = false
+
+
+
+      let index =0;
+      for(let zeile of zeilen) {
+        if (zeile.search("@ApiResponses") !== -1) {
+          zeilen.splice(index,1);
+        }
+        if(zeile.search("@ApiResponse") !== -1){
+          zeilen.splice(index,1);
+        }
+        index++;
+      }
+
+
       for(let zeile of zeilen){
         i++;
         //console.log("zeilennummer:", i)
         //console.log("Sucherergebnis search:",zeile.search("@PostMapping") )
+
+
         if(zeile.search("@ApiOperation") !== -1){
           zeile = zeile.substring(zeile.search("@ApiOperation"));
           let splitted = zeile.split("\"");
           splitted = splitted[1] + "\"";
           console.log(splitted);
           this.result.push(splitted);
+          apioperation = true;
         }else if (zeile.search("@GetMapping")>-1 || zeile.search("@PatchMapping")>-1 || zeile.search("@PostMapping")>-1 || zeile.search("@PutMapping")>-1 || zeile.search("@DeleteMapping")>1) {
           //this.result.push(zeile);
           let splitted = zeile.split("\"");
@@ -44,9 +63,12 @@ export class FileReaderComponent {
           });*/
         }else{
            console.log("Annotation entspricht nicht Fall 1-5");
-           //Zeilenumbruch
-           let leer = "\n";
-           this.result.push(leer);
+           if(apioperation == true){
+             let leer = " \n";
+             this.result.push(leer);
+             apioperation=false;
+           }
+
         }
       }
       //console.log(this.result);
