@@ -51,10 +51,6 @@ export class FileReaderComponent {
       let apioperation = false
 
 
-
-
-
-
       // Löschen von unnötigen Zeilen
       let index_delete =0;
       for(let zeile of zeilen) {
