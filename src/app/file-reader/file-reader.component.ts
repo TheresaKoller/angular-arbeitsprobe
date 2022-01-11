@@ -8,20 +8,18 @@ import { Component, Output, EventEmitter } from '@angular/core';
 export class FileReaderComponent {
   fileOutput;
   result = new Array();
-  ersteZeile;
-  //leer;
-
-
+result2 = new Array();
   getRoleNames(roles){
 
-
-
+    //roles=roles.match(/[A-Z,_]{3,}/);
+    console.log(roles.match(/[A-Z,_]{3,}/g));
     roles=roles+"test";
     return roles;
   }
 
   getRoles(index_role, zeilen){
     let roles = zeilen[index_role];
+    console.log(roles)
     let found = true;
     index_role=index_role+1;
     while(found){
@@ -51,10 +49,6 @@ export class FileReaderComponent {
       let apioperation = false
 
 
-
-
-
-
       // Löschen von unnötigen Zeilen
       let index_delete =0;
       for(let zeile of zeilen) {
@@ -73,14 +67,12 @@ export class FileReaderComponent {
       let i_analyze=0;
 
       for(let zeile of zeilen){
-        i_analyze++;
-
         //Bedingungen
-
         if (zeile.search("@PreAuthorize") !== -1) {
           let roles = this.getRoles(i_analyze, zeilen)
           let role_names = this.getRoleNames(roles)
-          this.result.push(role_names)
+          this.result2.push("Rollen:");
+          this.result.push(roles)
         }
         if(zeile.search("@ApiOperation") !== -1){
           zeile = zeile.substring(zeile.search("@ApiOperation"));
@@ -88,6 +80,7 @@ export class FileReaderComponent {
           splitted = splitted[1] + "\"";
           console.log(splitted);
           this.result.push(splitted);
+          this.result2.push("ApiOperation");
           apioperation = true;
         }else if (zeile.search("@GetMapping")>-1 || zeile.search("@PatchMapping")>-1 || zeile.search("@PostMapping")>-1 || zeile.search("@PutMapping")>-1 || zeile.search("@DeleteMapping")>1) {
           //this.result.push(zeile);
@@ -95,15 +88,18 @@ export class FileReaderComponent {
           splitted = splitted[1] + "\"";
           console.log(splitted);
           this.result.push(splitted);
+          this.result2.push("***Mapping");
         }else{
            console.log("Annotation entspricht nicht Fall 1-5");
            if(apioperation == true){
                let leer = " \n";
              this.result.push(leer);
+             this.result2.push(leer);
              apioperation=false;
            }
 
         }
+        i_analyze++;
       }
     };
 

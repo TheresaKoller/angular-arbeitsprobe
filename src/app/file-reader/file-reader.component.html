@@ -10,11 +10,10 @@
       </th>
     </tr>
 
-    <tr *ngFor = "let result of rows">
-      <td *ngFor = "let column of headers" class="rows-table">
-        <div *ngIf='result==" \n"' style="background-color:yellow">test</div>
-           {{result}}
-      </td>
+    <tr *ngFor = "let result of rows; let i = index">
+      <td>{{this.result2[i]}}</td>
+      <td><div *ngIf='result==" \n"' style="background-color:yellow">test</div>
+        {{result}}</td>
     </tr>
   </table>
 
