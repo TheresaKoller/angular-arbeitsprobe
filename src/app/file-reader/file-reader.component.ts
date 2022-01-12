@@ -29,7 +29,7 @@ export class FileReaderComponent {
 
   getRoleNames(roles){
 
-    roles=roles.match(/[A-Z,_]{3,}/);
+    roles=roles.match(/[A-Z,_]{3,}/g);
     console.log(roles);
 
     roles=roles+"test";
@@ -72,6 +72,7 @@ export class FileReaderComponent {
         //Bedingungen
 
         if (zeile.search("@PreAuthorize") !== -1) {
+          zeile = this.result.push(zeile)
           let roles = this.getRoles(i_analyze, zeilen)
           let role_names = this.getRoleNames(roles)
           this.result.push(role_names)
