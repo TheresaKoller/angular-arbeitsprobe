@@ -28,7 +28,9 @@ export class FileReaderComponent {
   }
 
   getRoleNames(roles){
-      console.log(roles.search("[A-Z,_]{3,}"))
+
+    roles=roles.match(/[A-Z,_]{3,}/);
+    console.log(roles);
 
     roles=roles+"test";
     return roles;
