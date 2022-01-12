@@ -1,4 +1,5 @@
 import { Component, Output, EventEmitter } from '@angular/core';
+import {getLocaleTimeFormat} from "@angular/common";
 
 @Component({
   selector: 'file-reader',
@@ -8,18 +9,7 @@ import { Component, Output, EventEmitter } from '@angular/core';
 export class FileReaderComponent {
   fileOutput;
   result = new Array();
-  ersteZeile;
-  //leer;
 
- //RegEx Großbuchstaben Rollen
-  getRoleNames(roles){
-    if(roles.search("[A-Z,_]{3,}")!== -1){
-      this.result.push(roles);
-    }
-
-    roles=roles+"test";
-    return roles;
-  }
 
   getRoles(index_role, zeilen){
     let roles = zeilen[index_role];
@@ -37,6 +27,12 @@ export class FileReaderComponent {
     return roles;
   }
 
+  getRoleNames(roles){
+      console.log(roles.search("[A-Z,_]{3,}"))
+
+    roles=roles+"test";
+    return roles;
+  }
 
   onChange(event) {
     var file = event.target.files[0];
@@ -70,7 +66,6 @@ export class FileReaderComponent {
       let i_analyze=0;
 
       for(let zeile of zeilen){
-        i_analyze++;
 
         //Bedingungen
 
@@ -78,8 +73,7 @@ export class FileReaderComponent {
           let roles = this.getRoles(i_analyze, zeilen)
           let role_names = this.getRoleNames(roles)
           this.result.push(role_names)
-        }
-        if(zeile.search("@ApiOperation") !== -1){
+        }else if (zeile.search("@ApiOperation") !== -1){
           zeile = zeile.substring(zeile.search("@ApiOperation"));
           let splitted = zeile.split("\"");
           splitted = splitted[1] + "\"";
@@ -101,6 +95,7 @@ export class FileReaderComponent {
            }
 
         }
+        i_analyze++;
       }
     };
 
