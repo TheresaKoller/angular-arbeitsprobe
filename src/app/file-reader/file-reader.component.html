@@ -12,8 +12,8 @@
 
     <tr *ngFor = "let result of rows; let i = index">
       <td class="rows-table">{{this.result2[i]}}</td>
-      <td class="rows-table"><div *ngIf='result==" \n"' class="td-table">
-        <p class="td-table"></p></div>
+      <td class="rows-table">
+        <div *ngIf='result==" \n"' class="td-table"><p class="td-table"></p></div>
           {{result}}
       </td>
     </tr>

@@ -84,14 +84,15 @@ export class FileReaderComponent {
           console.log(splitted);
           this.result.push(splitted);
           apioperation = true;
-          this.result2.push("Rollen")
+          this.result2.push("ApiOperation")
         }else if (zeile.search("@GetMapping")>-1 || zeile.search("@PatchMapping")>-1 || zeile.search("@PostMapping")>-1 || zeile.search("@PutMapping")>-1 || zeile.search("@DeleteMapping")>1) {
-          //this.result.push(zeile);
           let splitted = zeile.split("\"");
           splitted = splitted[1] + "\"";
-          console.log(splitted);
+          console.log(splitted)
+          let name = zeile.split("(");
+          name = name[0]
           this.result.push(splitted);
-          this.result2.push("Pfad")
+          this.result2.push("Pfad" + name)
         }else{
            console.log("Annotation entspricht nicht Fall 1-5");
            if(apioperation == true){
