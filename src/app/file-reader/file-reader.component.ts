@@ -13,9 +13,6 @@ import { Component, Output, EventEmitter } from '@angular/core';
     ]),
   ],
 })
-export class TableExpandableRowsExample {
-  expandedElement: PeriodicElement;
-}
 
 export interface PeriodicElement {
   result: string;
@@ -26,6 +23,7 @@ export class FileReaderComponent {
   fileOutput;
   result = new Array();
 result2 = new Array();
+  expandedElement: PeriodicElement;
   getRoleNames(roles){
 
     //roles=roles.match(/[A-Z,_]{3,}/);
