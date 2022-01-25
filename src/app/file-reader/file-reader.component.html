@@ -3,28 +3,17 @@
 <br>
 <br>
 <mat-accordion>
+  *ngFor = "let result of rows; let i = index"
   <mat-expansion-panel hideToggle>
     <mat-expansion-panel-header>
-      *ngFor = "let result of rows; let i = index"
       <mat-panel-title>
         {{this.result2[i]}}
       </mat-panel-title>
     </mat-expansion-panel-header>
     <p>*ngIf='result==" \n"'</p>
   </mat-expansion-panel>
-  <mat-expansion-panel (opened)="panelOpenState = true"
-                       (closed)="panelOpenState = false">
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        Self aware panel
-      </mat-panel-title>
-      <mat-panel-description>
-        Currently I am {{panelOpenState ? 'open' : 'closed'}}
-      </mat-panel-description>
-    </mat-expansion-panel-header>
-    <p>I'm visible because I am open</p>
-  </mat-expansion-panel>
 </mat-accordion>
+
 <!--
   <table>
     <tr>
