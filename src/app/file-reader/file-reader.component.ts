@@ -14,11 +14,6 @@ import { Component, Output, EventEmitter } from '@angular/core';
   ],
 })
 
-export interface PeriodicElement {
-  result: string;
-  result2: string;
-}
-
 export class FileReaderComponent {
   fileOutput;
   result = new Array();
@@ -119,9 +114,13 @@ result2 = new Array();
     };
 
     reader.readAsText(file);
-
+    
+    export interface PeriodicElement {
+      result: string;
+      result2: string;
+    }
   }
   headers = ["@-Zeilen"];
   rows = this.result;
-
+  
 }
