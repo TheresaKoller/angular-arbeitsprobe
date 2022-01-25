@@ -5,6 +5,11 @@ import { Component, Output, EventEmitter } from '@angular/core';
   templateUrl: './file-reader.component.html',
   styleUrls: ['./file-reader.component.css']
 })
+
+export class ExpansionOverviewExample {
+  panelOpenState = false;
+}
+
 export class FileReaderComponent {
   fileOutput;
   result = new Array();
