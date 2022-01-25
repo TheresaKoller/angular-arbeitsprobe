@@ -18,7 +18,6 @@ export class FileReaderComponent {
   fileOutput;
   result = new Array();
 result2 = new Array();
-  expandedElement: PeriodicElement;
   getRoleNames(roles){
 
     //roles=roles.match(/[A-Z,_]{3,}/);
@@ -115,10 +114,6 @@ result2 = new Array();
 
     reader.readAsText(file);
     
-    export interface PeriodicElement {
-      result: string;
-      result2: string;
-    }
   }
   headers = ["@-Zeilen"];
   rows = this.result;
