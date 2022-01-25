@@ -13,9 +13,13 @@ import { Component, Output, EventEmitter } from '@angular/core';
     ]),
   ],
 })
+export class TableExpandableRowsExample {
+  expandedElement: PeriodicElement;
+}
 
-export class ExpansionOverviewExample {
-  panelOpenState = false;
+export interface PeriodicElement {
+  result: string;
+  result2: string;
 }
 
 export class FileReaderComponent {
