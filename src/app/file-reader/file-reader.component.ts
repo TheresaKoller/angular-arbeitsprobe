@@ -1,19 +1,36 @@
 import { Component, Output, EventEmitter } from '@angular/core';
-import {getLocaleTimeFormat} from "@angular/common";
-import {__spread} from "tslib";
+import {animate, state, style, transition, trigger} from "@angular/animations";
+import {CommonModule} from "@angular/common";
 
+// @ts-ignore
 @Component({
   selector: 'file-reader',
   templateUrl: './file-reader.component.html',
-  styleUrls: ['./file-reader.component.css']
+  styleUrls: ['./file-reader.component.css'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({height: '0px', minHeight: '0', display: 'none'})),
+      state('expanded', style({height: '*'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
+
 export class FileReaderComponent {
   fileOutput;
   result = new Array();
-  result2 = new Array();
+result2 = new Array();
+  getRoleNames(roles){
+
+    //roles=roles.match(/[A-Z,_]{3,}/);
+    console.log(roles.match(/[A-Z,_]{3,}/g));
+    roles=roles+"test";
+    return roles;
+  }
 
   getRoles(index_role, zeilen){
     let roles = zeilen[index_role];
+    console.log(roles)
     let found = true;
     index_role=index_role+1;
     while(found){
@@ -28,14 +45,6 @@ export class FileReaderComponent {
     return roles;
   }
 
-  getRoleNames(roles){
-
-    roles=roles.match(/[A-Z,_]{3,}/g);
-    console.log(roles);
-
-    roles=roles+"test";
-    return roles;
-  }
 
   onChange(event) {
     var file = event.target.files[0];
@@ -69,35 +78,34 @@ export class FileReaderComponent {
       let i_analyze=0;
 
       for(let zeile of zeilen){
-
         //Bedingungen
-
         if (zeile.search("@PreAuthorize") !== -1) {
           let roles = this.getRoles(i_analyze, zeilen)
           let role_names = this.getRoleNames(roles)
-          this.result.push(role_names)
-          this.result2.push("Rollen")
-        }else if (zeile.search("@ApiOperation") !== -1){
+          this.result2.push("Rollen:");
+          this.result.push(roles)
+        }
+        if(zeile.search("@ApiOperation") !== -1){
           zeile = zeile.substring(zeile.search("@ApiOperation"));
           let splitted = zeile.split("\"");
           splitted = splitted[1] + "\"";
           console.log(splitted);
           this.result.push(splitted);
+          this.result2.push("ApiOperation");
           apioperation = true;
-          this.result2.push("ApiOperation")
         }else if (zeile.search("@GetMapping")>-1 || zeile.search("@PatchMapping")>-1 || zeile.search("@PostMapping")>-1 || zeile.search("@PutMapping")>-1 || zeile.search("@DeleteMapping")>1) {
+          //this.result.push(zeile);
           let splitted = zeile.split("\"");
           splitted = splitted[1] + "\"";
-          console.log(splitted)
-          let name = zeile.split("(");
-          name = name[0]
+          console.log(splitted);
           this.result.push(splitted);
-          this.result2.push("Pfad" + name)
+          this.result2.push("***Mapping");
         }else{
            console.log("Annotation entspricht nicht Fall 1-5");
            if(apioperation == true){
                let leer = " \n";
              this.result.push(leer);
+             this.result2.push(leer);
              apioperation=false;
            }
 
@@ -109,7 +117,7 @@ export class FileReaderComponent {
     reader.readAsText(file);
 
   }
-  headers = [" ","Beschreibung"];
+  headers = ["@-Zeilen"];
   rows = this.result;
 
 }

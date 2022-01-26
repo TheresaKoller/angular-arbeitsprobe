@@ -2,7 +2,43 @@
 <br>
 <br>
 <br>
+<table mat-table
+      multiTemplateDataRows
+       class="mat-elevation-z8">
 
+  <ng-container matColumnDef="{{column}}" *ngFor="let column of headers">
+    <div>test</div>
+    <th mat-header-cell *matHeaderCellDef> {{column}} </th>
+    <td mat-cell *matCellDef="let element"> {{column}} </td>
+  </ng-container>
+
+
+  <ng-container *ngFor = "let result of rows; let i = index" >
+    <td mat-cell *matCellDef="let element" [attr.colspan]="headers.length">
+      <div class="example-element-detail"
+           [@detailExpand]="element == result ? 'expanded' : 'collapsed'">
+
+        <div class="example-element-diagram">
+          <div class="example-element-name"> {{this.result2[i]}} </div>
+        </div>
+
+        <div class="example-element-description">
+          {{this.result}}
+        </div>
+
+      </div>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="headers"></tr>
+  <tr mat-row *matRowDef="let element; columns: headers;"
+      class="example-element-row"
+      [class.example-expanded-row]="result === element"
+      (click)="result = element">
+  </tr>
+</table>
+
+<!--
   <table>
     <tr>
       <th *ngFor = "let column of headers" class="content-table">
@@ -18,5 +54,5 @@
       </td>
     </tr>
   </table>
-
+-->
 <!-- <app-test></app-test> -->
