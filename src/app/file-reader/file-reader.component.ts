@@ -1,10 +1,12 @@
 import { Component, Output, EventEmitter } from '@angular/core';
+import {animate, state, style, transition, trigger} from "@angular/animations";
+import {CommonModule} from "@angular/common";
 
+// @ts-ignore
 @Component({
   selector: 'file-reader',
   templateUrl: './file-reader.component.html',
-  styleUrls: ['./file-reader.component.css']
-  
+  styleUrls: ['./file-reader.component.css'],
   animations: [
     trigger('detailExpand', [
       state('collapsed', style({height: '0px', minHeight: '0', display: 'none'})),
@@ -113,9 +115,9 @@ result2 = new Array();
     };
 
     reader.readAsText(file);
-    
+
   }
   headers = ["@-Zeilen"];
   rows = this.result;
-  
+
 }
