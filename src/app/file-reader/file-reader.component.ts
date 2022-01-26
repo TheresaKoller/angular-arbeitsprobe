@@ -1,26 +1,29 @@
 import { Component, Output, EventEmitter } from '@angular/core';
+import {getLocaleTimeFormat} from "@angular/common";
+import {__spread} from "tslib";
 
 @Component({
   selector: 'file-reader',
   templateUrl: './file-reader.component.html',
   styleUrls: ['./file-reader.component.css']
 })
-
 export class FileReaderComponent {
   fileOutput;
   result = new Array();
-result2 = new Array();
-  getRoleNames(roles){
+  result2 = new Array();
+  isExpanded = new Array();
 
-    //roles=roles.match(/[A-Z,_]{3,}/);
-    console.log(roles.match(/[A-Z,_]{3,}/g));
-    roles=roles+"test";
-    return roles;
+  changeExpandStatus(i){
+    if(this.isExpanded[i]==true){
+      this.isExpanded[i]= false;
+    }
+    else {
+      this.isExpanded[i] = true;
+    }
   }
 
   getRoles(index_role, zeilen){
     let roles = zeilen[index_role];
-    console.log(roles)
     let found = true;
     index_role=index_role+1;
     while(found){
@@ -35,6 +38,14 @@ result2 = new Array();
     return roles;
   }
 
+  getRoleNames(roles){
+
+    roles=roles.match(/[A-Z,_]{3,}/g);
+    console.log(roles);
+
+    roles=roles+"test";
+    return roles;
+  }
 
   onChange(event) {
     var file = event.target.files[0];
@@ -68,34 +79,35 @@ result2 = new Array();
       let i_analyze=0;
 
       for(let zeile of zeilen){
+
         //Bedingungen
+
         if (zeile.search("@PreAuthorize") !== -1) {
           let roles = this.getRoles(i_analyze, zeilen)
           let role_names = this.getRoleNames(roles)
-          this.result2.push("Rollen:");
-          this.result.push(roles)
-        }
-        if(zeile.search("@ApiOperation") !== -1){
+          this.result.push(role_names)
+          this.result2.push("Rollen")
+        }else if (zeile.search("@ApiOperation") !== -1){
           zeile = zeile.substring(zeile.search("@ApiOperation"));
           let splitted = zeile.split("\"");
           splitted = splitted[1] + "\"";
           console.log(splitted);
           this.result.push(splitted);
-          this.result2.push("ApiOperation");
           apioperation = true;
+          this.result2.push("ApiOperation")
         }else if (zeile.search("@GetMapping")>-1 || zeile.search("@PatchMapping")>-1 || zeile.search("@PostMapping")>-1 || zeile.search("@PutMapping")>-1 || zeile.search("@DeleteMapping")>1) {
-          //this.result.push(zeile);
           let splitted = zeile.split("\"");
           splitted = splitted[1] + "\"";
-          console.log(splitted);
+          console.log(splitted)
+          let name = zeile.split("(");
+          name = name[0]
           this.result.push(splitted);
-          this.result2.push("Pfad: " + splitted[0]);
+          this.result2.push("Pfad" + name)
         }else{
            console.log("Annotation entspricht nicht Fall 1-5");
            if(apioperation == true){
                let leer = " \n";
              this.result.push(leer);
-             this.result2.push(leer);
              apioperation=false;
            }
 
@@ -107,7 +119,7 @@ result2 = new Array();
     reader.readAsText(file);
 
   }
-  headers = ["@-Zeilen", "Beschreibung"];
+  headers = [" ","Beschreibung"];
   rows = this.result;
 
 }
