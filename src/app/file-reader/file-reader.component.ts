@@ -105,11 +105,11 @@ export class FileReaderComponent {
           this.result2.push("Pfad" + name)
         }else{
            console.log("Annotation entspricht nicht Fall 1-5");
-           if(apioperation == true){
-               let leer = " \n";
-             this.result.push(leer);
+           //if(apioperation == true){
+              // let leer = " \n";
+             //this.result.push(leer);
              apioperation=false;
-           }
+           //}
 
         }
         i_analyze++;
