@@ -119,7 +119,7 @@ export class FileReaderComponent {
     reader.readAsText(file);
 
   }
-  headers = [" ","Beschreibung"];
+  headers = ["Beschreibung"];
   rows = this.result;
 
 }
