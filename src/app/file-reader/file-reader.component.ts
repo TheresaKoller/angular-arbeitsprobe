@@ -76,11 +76,15 @@ export class FileReaderComponent {
 
 // Zeilen analysieren
 
-      let i_analyze=0;
 
+      let i_analyze=0; // der Wert der Variablen entspricht der aktuellen Zeielennumer
+
+      // Hier wird Zeile für Zeile  analysiert
       for(let zeile of zeilen){
 
         //Bedingungen
+
+
 
         if (zeile.search("@PreAuthorize") !== -1) {
           let roles = this.getRoles(i_analyze, zeilen)

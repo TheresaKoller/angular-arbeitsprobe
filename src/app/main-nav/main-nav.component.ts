@@ -20,10 +20,13 @@ export class MainNavComponent {
 
   constructor(private breakpointObserver: BreakpointObserver) {}
 
-  /*ClickAlert() {
-    alert("Why did you do that!");
-  }*/
 
+
+  click_me(){
+
+alert("Klick mich, funktioniert")
+
+  }
 
 
 }
