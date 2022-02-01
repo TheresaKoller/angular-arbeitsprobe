@@ -24,7 +24,7 @@ export class MainNavComponent {
 
   click_me(){
 
-alert("Klick mich, funktioniert")
+
 
   }
 
