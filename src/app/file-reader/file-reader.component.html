@@ -1,16 +1,17 @@
+<!-- einlesen der Datei anhand eines Buttons -->
 <input class="button-design" type="file" (change)="onChange($event)">
 <br>
 <br>
 <br>
 
 <table>
-
+  <!-- Spalten ausgeben -->
   <tr>
     <th *ngFor = "let column of headers" class="content-table">
       {{column}}
     </th>
   </tr>
-
+  <!-- Inhalte ausgeben -->
     <tr *ngFor = "let result of rows; let i = index">
       <td class="rows-table" (click)="changeExpandStatus(i)"><div>{{this.result2[i]}}</div>
       <div class="rows-table"  *ngIf="isExpanded[i]">
@@ -21,31 +22,8 @@
             </tr>
           </table>
         </div>
-        <!--<div *ngIf='result==" \n"' class="td-table"><p class="td-table"></p></div>
-        {{result}}-->
       </div>
       </td>
     </tr>
 
 </table>
-<!-- <app-test></app-test> -->
-
-
-
-
-<!-- <table>
-    <tr>
-      <th *ngFor = "let column of headers" class="content-table">
-        {{column}}
-      </th>
-    </tr>
-
-    <tr *ngFor = "let result of rows; let i = index">
-      <td class="rows-table">{{this.result2[i]}}</td>
-      <td class="rows-table">
-        <div *ngIf='result==" \n"' class="td-table"><p class="td-table"></p></div>
-          {{result}}
-      </td>
-    </tr>
-  </table> -->
-<!-- <app-test></app-test> -->

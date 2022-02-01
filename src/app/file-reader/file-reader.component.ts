@@ -12,7 +12,7 @@ export class FileReaderComponent {
   result = new Array();
   result2 = new Array();
   isExpanded = new Array();
-
+// im Bezug mit html-file
   changeExpandStatus(i){
     if(this.isExpanded[i]==true){
       this.isExpanded[i]= false;
@@ -21,7 +21,7 @@ export class FileReaderComponent {
       this.isExpanded[i] = true;
     }
   }
-
+//einzelne Zeilen werden anhand des "+" als Mehrzeiler erkannt -> damit wir die Rollen ausgeben können
   getRoles(index_role, zeilen){
     let roles = zeilen[index_role];
     let found = true;
@@ -37,7 +37,7 @@ export class FileReaderComponent {
 
     return roles;
   }
-
+//RegEx, filtern nach mindestens drei aneinanderfolgenden Großbuchstaben + "_" -> Rollen in der Datei erkennen
   getRoleNames(roles){
 
     roles=roles.match(/[A-Z,_]{3,}/g);
@@ -119,6 +119,7 @@ export class FileReaderComponent {
     reader.readAsText(file);
 
   }
+  //Datenübergabe an html-file
   headers = ["Beschreibung"];
   rows = this.result;
 
