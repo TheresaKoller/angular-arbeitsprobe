@@ -9,6 +9,8 @@ import {__spread} from "tslib";
 })
 export class FileReaderComponent {
   fileOutput;
+  zehnZeilen;
+  kommentar;
   result = new Array();
   result2 = new Array();
   isExpanded = new Array();
@@ -77,16 +79,22 @@ export class FileReaderComponent {
 // Zeilen analysieren
 
 
-      let i_analyze=0; // der Wert der Variablen entspricht der aktuellen Zeielennumer
+      let i_analyze=0; // der Wert der Variable entspricht der aktuellen Zeilennummer
+      //Ausgabe 1.1
+      if (zeilen.length > 10){
+        this.zehnZeilen = ("10 Zeilen wurden erfolgreich eingelesen");
+        console.log(this.zehnZeilen)
+      }
 
       // Hier wird Zeile für Zeile  analysiert
-      for(let zeile of zeilen){
+      for(let zeile of zeilen) {
 
         //Bedingungen
-
-
-
-        if (zeile.search("@PreAuthorize") !== -1) {
+        //Aufgabe 1.2
+        if (zeile.search("//") !== -1) {
+          this.kommentar = ("Es befinden sich Kommentare in der Datei")
+          console.log(this.kommentar)
+        } else if (zeile.search("@PreAuthorize") !== -1) {
           let roles = this.getRoles(i_analyze, zeilen)
           let role_names = this.getRoleNames(roles)
           this.result.push(role_names)
@@ -126,5 +134,5 @@ export class FileReaderComponent {
   //Datenübergabe an html-file
   headers = ["Beschreibung"];
   rows = this.result;
-
 }
+

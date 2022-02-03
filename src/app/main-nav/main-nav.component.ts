@@ -21,14 +21,9 @@ export class MainNavComponent {
   constructor(private breakpointObserver: BreakpointObserver) {}
 
 
-
   click_me(){
-
-
-
-  }
-
-
+      alert('Klick mich, funktioniert');
+      }
 }
 
 
